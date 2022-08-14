@@ -1,6 +1,4 @@
-﻿using CalculatorLibrary;
-
-namespace ConsoleCalculatorApplication
+﻿namespace ConsoleCalculatorApplication
 {
     public class Program
     {
@@ -47,7 +45,7 @@ namespace ConsoleCalculatorApplication
 
                 string op = Console.ReadLine();
 
-                double result = Calculator.DoOperation(cleanNum1, cleanNum2, op);
+                double result = CalculatorLibrary.Calculator.DoOperation(cleanNum1, cleanNum2, op);
                 if (double.IsNaN(result))
                 {
                     Console.WriteLine("This operation will result in a mathematical error.\n");
