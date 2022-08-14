@@ -8,17 +8,20 @@ namespace Calculator.Tests
         [Fact]
         public void ShouldDoRun()
         {
-            StringWriter _stringWriter = new StringWriter();
-            Console.SetOut(_stringWriter);
-            StringBuilder _stringBuilder = new StringBuilder();
-            _stringBuilder.AppendLine("12");
-            _stringBuilder.AppendLine("10");
-            _stringBuilder.AppendLine("a");
-            _stringBuilder.AppendLine("n");
-            StringReader _stringReader = new StringReader(_stringBuilder.ToString());
-            Console.SetIn(_stringReader);
-            ConsoleCalculatorApplication.Program.Main(new string[0]);
-            var expectedResult = "Console Calculator in C#" +
+            StringWriter sw = new();
+            Console.SetOut(sw);
+
+            StringBuilder sb = new();
+            sb.AppendLine("11,7");
+            sb.AppendLine("30,3");
+            sb.AppendLine("a");
+            sb.AppendLine("n");
+
+            StringReader sr = new(sb.ToString());
+            Console.SetIn(sr);
+
+            ConsoleCalculatorApplication.Program.Main();
+            var expected = "Console Calculator in C#" +
                                  "------------------------" +
                                  "Type a number, and then press Enter: " +
                                  "Type another number, and then press Enter: " +
@@ -28,28 +31,31 @@ namespace Calculator.Tests
                                  "m - Multiply" +
                                  "d - Divide" +
                                  "Your option? " +
-                                 "Your result: 22" +
+                                 "Your result: 42" +
                                  "------------------------" +
                                  "Press 'n' and Enter to close the app, or press any other key and Enter to continue: ";
-            Assert.Equal(expectedResult, Regex.Replace(_stringWriter.ToString(), @"[\r\t\n]+", string.Empty));
-
+            Assert.Equal(expected, Regex.Replace(sw.ToString(), @"[\r\t\n]+", string.Empty));
         }
+
         [Fact]
         public void ShouldDoRunWith()
         {
-            StringWriter _stringWriter = new StringWriter();
-            Console.SetOut(_stringWriter);
-            StringBuilder _stringBuilder = new StringBuilder();
-            _stringBuilder.AppendLine("a");
-            _stringBuilder.AppendLine("2");
-            _stringBuilder.AppendLine("s");
-            _stringBuilder.AppendLine("0");
-            _stringBuilder.AppendLine("d");
-            _stringBuilder.AppendLine("n");
-            StringReader _stringReader = new StringReader(_stringBuilder.ToString());
-            Console.SetIn(_stringReader);
-            ConsoleCalculatorApplication.Program.Main(new string[0]);
-            var expectedResult = "Console Calculator in C#" +
+            StringWriter sw = new();
+            Console.SetOut(sw);
+
+            StringBuilder sb = new();
+            sb.AppendLine("a");
+            sb.AppendLine("11");
+            sb.AppendLine("s");
+            sb.AppendLine("0");
+            sb.AppendLine("d");
+            sb.AppendLine("n");
+
+            StringReader sr = new(sb.ToString());
+            Console.SetIn(sr);
+
+            ConsoleCalculatorApplication.Program.Main();
+            var expected = "Console Calculator in C#" +
                                  "------------------------" +
                                  "Type a number, and then press Enter: " +
                                  "This is not valid input. Please enter an integer value: " +
@@ -64,7 +70,7 @@ namespace Calculator.Tests
                                  "This operation will result in a mathematical error." +
                                  "------------------------" +
                                  "Press 'n' and Enter to close the app, or press any other key and Enter to continue: ";
-            Assert.Equal(expectedResult, Regex.Replace(_stringWriter.ToString(), @"[\r\t\n]+", string.Empty));
+            Assert.Equal(expected, Regex.Replace(sw.ToString(), @"[\r\t\n]+", string.Empty));
         }
     }
 }
