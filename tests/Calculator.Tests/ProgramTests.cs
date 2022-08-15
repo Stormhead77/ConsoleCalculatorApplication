@@ -1,5 +1,4 @@
 ﻿using ConsoleCalculatorApplication;
-using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace Calculator.Tests
@@ -68,11 +67,6 @@ namespace Calculator.Tests
                 "Press 'n' and Enter to close the app, or press any other key and Enter to continue: ";
 
             Assert.Equal(expected, Regex.Replace(mockConsole.Inputs.ToString(), @"[\r\t\n]+", string.Empty));
-        }
-
-        public void ShouldDoRun()
-        {
-            var qwe = new Mock
         }
     }
 }
