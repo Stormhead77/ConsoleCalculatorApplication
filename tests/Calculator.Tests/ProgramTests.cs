@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using ConsoleCalculatorApplication;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace Calculator.Tests
@@ -6,21 +7,17 @@ namespace Calculator.Tests
     public class ProgramTests
     {
         [Fact]
-        public void ShouldDoRun()
+        public void ShouldDoRunWithMockConsole()
         {
-            StringWriter sw = new();
-            Console.SetOut(sw);
+            MockConsole mockConsole = new();
+            Program program = new();
+            program.MyConsole = mockConsole;
+            mockConsole.Output.Enqueue("11");
+            mockConsole.Output.Enqueue("31");
+            mockConsole.Output.Enqueue("a");
+            mockConsole.Output.Enqueue("n");
 
-            StringBuilder sb = new();
-            sb.AppendLine("11");
-            sb.AppendLine("31");
-            sb.AppendLine("a");
-            sb.AppendLine("n");
-
-            StringReader sr = new(sb.ToString());
-            Console.SetIn(sr);
-
-            ConsoleCalculatorApplication.Program.Main();
+            program.RunCalculator();
             var expected =
                 "Console Calculator in C#" +
                 "------------------------" +
@@ -35,27 +32,24 @@ namespace Calculator.Tests
                 "Your result: 42" +
                 "------------------------" +
                 "Press 'n' and Enter to close the app, or press any other key and Enter to continue: ";
-            Assert.Equal(expected, Regex.Replace(sw.ToString(), @"[\r\t\n]+", string.Empty));
+
+            Assert.Equal(expected, Regex.Replace(mockConsole.Inputs.ToString(), @"[\r\t\n]+", string.Empty));
         }
 
         [Fact]
-        public void ShouldDoRunWith()
+        public void ShouldDoRunWithNotValidInputWithMockConsole()
         {
-            StringWriter sw = new();
-            Console.SetOut(sw);
+            MockConsole mockConsole = new();
+            Program program = new();
+            program.MyConsole = mockConsole;
+            mockConsole.Output.Enqueue("a");
+            mockConsole.Output.Enqueue("11");
+            mockConsole.Output.Enqueue("s");
+            mockConsole.Output.Enqueue("0");
+            mockConsole.Output.Enqueue("d");
+            mockConsole.Output.Enqueue("n");
 
-            StringBuilder sb = new();
-            sb.AppendLine("a");
-            sb.AppendLine("11");
-            sb.AppendLine("s");
-            sb.AppendLine("0");
-            sb.AppendLine("d");
-            sb.AppendLine("n");
-
-            StringReader sr = new(sb.ToString());
-            Console.SetIn(sr);
-
-            ConsoleCalculatorApplication.Program.Main();
+            program.RunCalculator();
             var expected =
                 "Console Calculator in C#" +
                 "------------------------" +
@@ -72,7 +66,13 @@ namespace Calculator.Tests
                 "This operation will result in a mathematical error." +
                 "------------------------" +
                 "Press 'n' and Enter to close the app, or press any other key and Enter to continue: ";
-            Assert.Equal(expected, Regex.Replace(sw.ToString(), @"[\r\t\n]+", string.Empty));
+
+            Assert.Equal(expected, Regex.Replace(mockConsole.Inputs.ToString(), @"[\r\t\n]+", string.Empty));
+        }
+
+        public void ShouldDoRun()
+        {
+            var qwe = new Mock
         }
     }
 }

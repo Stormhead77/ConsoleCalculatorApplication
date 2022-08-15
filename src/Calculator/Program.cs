@@ -1,63 +1,69 @@
-﻿namespace ConsoleCalculatorApplication
+﻿using Calculator;
+
+namespace ConsoleCalculatorApplication
 {
     public class Program
     {
+        public IConsole MyConsole = new DefaultConsole();
+
         public static void Main()
         {
-            RunCalculator();
+            Program program = new Program();
+
+            program.RunCalculator();
         }
 
-        private static void RunCalculator()
+        public void RunCalculator()
         {
             bool endApp = false;
-            Console.WriteLine("Console Calculator in C#\r");
-            Console.WriteLine("------------------------\n");
+            MyConsole.WriteLine("Console Calculator in C#\r");
+            MyConsole.WriteLine("------------------------\n");
             
             while (!endApp)
             {
 
-                Console.Write("Type a number, and then press Enter: ");
-                string numInput1 = Console.ReadLine();
+                MyConsole.Write("Type a number, and then press Enter: ");
+                string numInput1 = MyConsole.ReadLine();
 
                 double cleanNum1;
                 while (!double.TryParse(numInput1, out cleanNum1))
                 {
-                    Console.Write("This is not valid input. Please enter an integer value: ");
-                    numInput1 = Console.ReadLine();
+                    MyConsole.Write("This is not valid input. Please enter an integer value: ");
+                    numInput1 = MyConsole.ReadLine();
                 }
 
-                Console.Write("Type another number, and then press Enter: ");
-                string numInput2 = Console.ReadLine();
+                MyConsole.Write("Type another number, and then press Enter: ");
+                string numInput2 = MyConsole.ReadLine();
 
                 double cleanNum2;
                 while (!double.TryParse(numInput2, out cleanNum2))
                 {
-                    Console.Write("This is not valid input. Please enter an integer value: ");
-                    numInput2 = Console.ReadLine();
+                    MyConsole.Write("This is not valid input. Please enter an integer value: ");
+                    numInput2 = MyConsole.ReadLine();
                 }
 
-                Console.WriteLine("Choose an operator from the following list:");
-                Console.WriteLine("\ta - Add");
-                Console.WriteLine("\ts - Subtract");
-                Console.WriteLine("\tm - Multiply");
-                Console.WriteLine("\td - Divide");
-                Console.Write("Your option? ");
+                MyConsole.WriteLine("Choose an operator from the following list:");
+                MyConsole.WriteLine("\ta - Add");
+                MyConsole.WriteLine("\ts - Subtract");
+                MyConsole.WriteLine("\tm - Multiply");
+                MyConsole.WriteLine("\td - Divide");
+                MyConsole.Write("Your option? ");
 
-                string op = Console.ReadLine();
+                string op = MyConsole.ReadLine();
 
                 double result = CalculatorLibrary.Calculator.DoOperation(cleanNum1, cleanNum2, op);
                 if (double.IsNaN(result))
                 {
-                    Console.WriteLine("This operation will result in a mathematical error.\n");
+                    MyConsole.WriteLine("This operation will result in a mathematical error.\n");
                 }
-                else Console.WriteLine("Your result: {0:0.##}\n", result);
+                else MyConsole.WriteLine("Your result: {0:0.##}\n", result);
 
-                Console.WriteLine("------------------------\n");
+                MyConsole.WriteLine("------------------------\n");
 
-                Console.Write("Press 'n' and Enter to close the app, or press any other key and Enter to continue: ");
-                if (Console.ReadLine() == "n") endApp = true;
+                MyConsole.Write("Press 'n' and Enter to close the app, or press any other key and Enter to continue: ");
+                if (MyConsole.ReadLine() == "n") endApp = true;
 
-                Console.WriteLine("\n");
+                MyConsole.WriteLine("\n");
             }
 
             return;
