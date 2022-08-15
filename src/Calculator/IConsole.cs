@@ -6,6 +6,5 @@
         void WriteLine(string input, params object[] args);
         void Write(string input);
         string ReadLine();
-    }}
-    //}
+    }
 }
