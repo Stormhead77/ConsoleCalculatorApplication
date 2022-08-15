@@ -1,2 +1,2 @@
 # ConsoleCalculatorApplication
-![codecov](https://img.shields.io/badge/Code%20Coverage-100%25-success?style=flat)
+![Code Coverage](https://img.shields.io/badge/Code%20Coverage-80%25-yellow?style=flat)
